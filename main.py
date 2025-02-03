@@ -83,22 +83,22 @@ class City(Base):
 class Time(Base):
     __tablename__ = "time"
     id = Column(Integer, primary_key=True, index=True)
-    movie_id = Column(Integer, ForeignKey("concert.id"), nullable=False)
-    hall_id = Column(Integer, ForeignKey("city.id"), nullable=False)
+    concert_id = Column(Integer, ForeignKey("concert.id"), nullable=False)
+    city_id = Column(Integer, ForeignKey("city.id"), nullable=False)
     time = Column(String(100), nullable=False)
 
-    movie = relationship("Concert")
-    hall = relationship("City")
+    concert = relationship("Concert")
+    city = relationship("City")
 
 class Reservation(Base):
     __tablename__ = "reservations"
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    projection_id = Column(Integer, ForeignKey("time.id"), nullable=False)
+    time_id = Column(Integer, ForeignKey("time.id"), nullable=False)
     seats_reserved = Column(Integer, nullable=False)
 
     user = relationship("User")
-    projection = relationship("Time")
+    time = relationship("Time")
 
 Base.metadata.create_all(bind=engine)
 
